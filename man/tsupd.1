@@ -1,0 +1,73 @@
+.TH TSUPD 1 tsupd-VERSION
+
+.SH NAME
+tsupd \- Tiny process supervisor daemon.
+
+.SH SYNOPSIS
+.B tsupd
+.RB [ OPTION... ]
+
+.SH DESCRIPTION
+tsupd is a process supervisor. It allows users to keep track of new processes
+based on user supplied string labels, as opposed to the integer pids assigned
+by the OS.
+.PP
+Once tsupd is started it awaits commands on the control unix socket from the
+client program
+.IR tsupq .
+.PP
+When the user requests tsupd to spawn a new process they must supply a string
+ID that can be used to to refer to the spawned process in the future. The spawn
+request should also contain a command name and its arguments that tsupd will
+spawn.
+.PP
+Apart from spawning new processes tsupd can return a list of currently
+supervised processes and send signals to the supervised processes based on
+their string IDs.
+
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help ,
+show usage and exit.
+.TP
+.B \-q
+decrease verbosity.
+.TP
+.B \-v
+increase verbosity.
+.TP
+.BR \-v ", " \-\-version
+print version and exit.
+
+.SH NOTES
+tsupd uses a self pipe trick in order to reliably keep track of child
+processes. It means that the number of child processes will be limited by
+the number of pipes that tsupd can create. Use
+.I ulimit -n
+to control the number of pipes that tsupd can open.
+
+.PP
+The user supplied string process ID can contain only printable ASCII
+characters (and space), except
+.RI "quote(" ' "), double quote(" \(lq ") and comma(" , ")."
+
+.PP
+Once started tsupd will run continuously until it receives a shutdown request
+from the client. If such request is received then the tsupd will try to
+shutdown gracefully. During the graceful shutdown tsupd will send
+.I SIGTERM
+to all supervised processes and wait for 1 second for them to finish. After
+that time all supervised processes that have not completed yet will be killed
+by
+.I SIGKILL
+and tsupd will exit.
+
+.PP
+The graceful shutdown can be also initiated by sending either
+.IR SIGTERM " or " SIGINT
+signal to the tsupd daemon.
+
+.SH SEE ALSO
+.BR tsupq (1)
+\- tsupd control program.
+
