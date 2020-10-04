@@ -1,12 +1,18 @@
 .TH TSUPD 1 tsupd-VERSION
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:NAME
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH NAME
 tsupd \- Tiny process supervisor daemon.
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:SYNOPSIS
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH SYNOPSIS
 .B tsupd
 .RB [ OPTION... ]
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:DESCRIPTION
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH DESCRIPTION
 tsupd is a process supervisor. It allows users to keep track of new processes
 based on user supplied string labels, as opposed to the integer pids assigned
@@ -24,7 +30,9 @@ spawn.
 Apart from spawning new processes tsupd can return a list of currently
 supervised processes and send signals to the supervised processes based on
 their string IDs.
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:OPTIONS
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH OPTIONS
 .TP
 .BR \-h ", " \-\-help ,
@@ -38,19 +46,19 @@ increase verbosity.
 .TP
 .BR \-v ", " \-\-version
 print version and exit.
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:NOTES
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH NOTES
 tsupd uses a self pipe trick in order to reliably keep track of child
 processes. It means that the number of child processes will be limited by
 the number of pipes that tsupd can create. Use
 .I ulimit -n
 to control the number of pipes that tsupd can open.
-
 .PP
 The user supplied string process ID can contain only printable ASCII
 characters (and space), except
 .RI "quote(" ' "), double quote(" \(lq ") and comma(" , ")."
-
 .PP
 Once started tsupd will run continuously until it receives a shutdown request
 from the client. If such request is received then the tsupd will try to
@@ -61,13 +69,10 @@ that time all supervised processes that have not completed yet will be killed
 by
 .I SIGKILL
 and tsupd will exit.
-
 .PP
 The graceful shutdown can be also initiated by sending either
 .IR SIGTERM " or " SIGINT
 signal to the tsupd daemon.
-
 .SH SEE ALSO
 .BR tsupq (1)
 \- tsupd control program.
-

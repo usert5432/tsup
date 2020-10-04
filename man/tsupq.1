@@ -1,49 +1,53 @@
 .TH TSUPQ 1 tsupq-VERSION
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:NAME
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH NAME
 tsupq \- Tiny supervisor controller program.
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:SYNOPSIS
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH SYNOPSIS
 .B tsupq
 .RB [ OPTION... ]
 .B check
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .PP
 .B tsupq
 .RB [ OPTION... ]
 .B kill
 .I ID
 .RI [ SIGNAL ]
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .PP
 .B tsupq
 .RB [ OPTION... ]
 .B list
 .RI [ ID ]
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .PP
 .B tsupq
 .RB [ OPTION... ]
 .B shutdown
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .PP
 .B tsupq
 .RB [ OPTION... ]
 .B spawn
 .I ID COMMAND
 .RI [ ARG... ]
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:DESCRIPTION
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH DESCRIPTION
 .BR tsupq " is a program to control the tiny supervisor daemon " tsupd .
 tsupq can be used to send the following queries to the daemon:
-
 .TP
 .RI "\fBspawn " "ID COMMAND " [ ARG... ]
 Start a new process
 .IR COMMAND " with arguments " ARG... " and assign it label " ID .
 The created process will be supervised by tsupd and can be monitored and
 controlled by the label.
-
 .TP
 .IR "\fBlist " [ ID ]
 List processes that are supervised by tsupd and have label matching
@@ -52,22 +56,21 @@ List processes that are supervised by tsupd and have label matching
 If
 .I ID
 is omitted that it will list all processes that are" supervised by tsupd.
-
 .TP
 .RI "\fBkill " "ID " [ SIGNAL ]
 .RI "Send a " SIGNAL " to the process(-s) with label matching " ID
 .RB "(see " NOTES " on label matching below)."
 .RI "If " SIGNAL " is omitted then " SIGTERM " will be sent."
-
 .TP
 .B check
 Check if tsupd daemon is running and responding. tsupq will exit with 0 exit
 code if daemon is running and nonzero exit code otherwise.
-
 .TP
 .B shutdown
 Request tsupd to shut down. tsupd will kill all supervised processes and exit.
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:OPTIONS
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH OPTIONS
 .TP
 .BR \-h ", " \-\-help ,
@@ -81,7 +84,9 @@ increase verbosity.
 .TP
 .BR \-v ", " \-\-version
 print version and exit.
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:NOTES
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH NOTES
 .RB "Both " kill " and " list " commands use pattern matching on " ID .
 The user supplied
@@ -90,8 +95,9 @@ is treated as a
 .BR glob (7)
 and matched against process labels with
 .BR fnmatch (3).
-
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\" Section:SEE ALSO
+\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .SH SEE ALSO
 .BR tsupd (1)
 \- tiny supervisor daemon.
-
